@@ -83,3 +83,45 @@ function resetForm() {
     document.getElementById("courseId").value = "";
     form.reset();
 }
+
+function searchCourses() {
+    const title = document.getElementById("searchTitle").value;
+    const credit = document.getElementById("searchCredit").value;
+    
+    let url = API_URL;
+    
+    if (title && credit) {
+        url = `${API_URL}/search?title=${encodeURIComponent(title)}&credit=${credit}`;
+    } else if (title) {
+        url = `${API_URL}/courses?title=${encodeURIComponent(title)}`;
+    } else if (credit) {
+        url = `${API_URL}/filter?credit=${credit}`;
+    }
+    
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const table = document.getElementById("courseTable");
+            table.innerHTML = "";
+
+            data.forEach(course => {
+                table.innerHTML += `
+                    <tr>
+                        <td>${course.id}</td>
+                        <td>${course.title}</td>
+                        <td>${course.credit}</td>
+                        <td class="actions">
+                            <button onclick="editCourse(${course.id}, '${course.title}', ${course.credit})">Edit</button>
+                            <button onclick="deleteCourse(${course.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+function clearSearch() {
+    document.getElementById("searchTitle").value = "";
+    document.getElementById("searchCredit").value = "";
+    loadCourses();
+}

@@ -34,4 +34,20 @@ public class CourseService {
                         new RuntimeException("Course with + "+id + "not present"));
         courseRepository.deleteById(id);
     }
+    public Long getCourseCount(){
+        List<Course> courses = courseRepository.findAll();
+        return (long) courses.size();
+    }
+
+    public List<Course> getCourseByTitle(String title){
+        return courseRepository.findByTitleContainingIgnoringCase(title);
+    }
+
+    public List<Course> getCourseByCredit(Integer credit){
+        return courseRepository.findByCredit(credit);
+    }
+
+    public List<Course> getCourseByTitleAndCredit(String title,Integer credit){
+        return courseRepository.findByTitleContainingIgnoringCaseAndCredit(title,credit);
+    }
 }

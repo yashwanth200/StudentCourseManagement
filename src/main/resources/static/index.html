@@ -18,6 +18,30 @@
 
             <h3 class="text-center mb-4">Course Management</h3>
 
+            <!-- Search Section -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input
+                            type="text"
+                            id="searchTitle"
+                            class="form-control"
+                            placeholder="Search by course title..."
+                    >
+                </div>
+                <div class="col-md-3">
+                    <input
+                            type="number"
+                            id="searchCredit"
+                            class="form-control"
+                            placeholder="Search by Credits"
+                    >
+                </div>
+                <div class="col-md-5">
+                    <button type="button" class="btn btn-info" onclick="searchCourses()">Search</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
+
             <!-- Course Form -->
             <form id="courseForm" class="row mb-4">
                 <input type="hidden" id="courseId">
