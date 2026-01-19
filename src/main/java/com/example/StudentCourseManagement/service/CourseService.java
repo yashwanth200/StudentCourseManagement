@@ -19,6 +19,13 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
+    public Course getCourseById(Long courseId){
+        Course courseById = courseRepository.findById(courseId)
+                .orElseThrow(()->
+                        new RuntimeException("Course with id "+ courseId + " not present"));
+        return courseById;
+    }
+
     public Course updateCourse(Long id,Course course){
         Course existingCourse = courseRepository.findById(id)
                 .orElseThrow(() ->

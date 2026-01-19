@@ -1,5 +1,6 @@
 package com.example.StudentCourseManagement.controller;
 
+import com.example.StudentCourseManagement.dto.StudentDTO;
 import com.example.StudentCourseManagement.model.Student;
 import com.example.StudentCourseManagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student){
-        return studentService.createStudent(student);
+    public Student createStudent(@RequestBody StudentDTO studentDTO){
+        return studentService.createStudent(studentDTO);
     }
 }
