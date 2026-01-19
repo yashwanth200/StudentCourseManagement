@@ -1,0 +1,16 @@
+{
+        {
+        "id" : 1
+        "name": "dale Doe",
+        "department": "Computer Science",
+        "email": "dale.doe@example.com",
+        "courses": {
+        "id": 1,
+        "title": "java Programming",
+        "credit": null,
+        "students": {
+
+        }
+     }
+   }
+}
