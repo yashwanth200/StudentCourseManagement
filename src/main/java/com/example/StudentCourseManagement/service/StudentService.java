@@ -1,14 +1,15 @@
 package com.example.StudentCourseManagement.service;
 
+import com.example.StudentCourseManagement.Mapper.MapperUtil;
 import com.example.StudentCourseManagement.dto.StudentDTO;
 import com.example.StudentCourseManagement.model.Course;
 import com.example.StudentCourseManagement.model.Student;
-import com.example.StudentCourseManagement.repository.CourseRepository;
 import com.example.StudentCourseManagement.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -20,7 +21,11 @@ public class StudentService {
     @Autowired
     private CourseService courseService;
 
-    public Student createStudent(StudentDTO studentDTO){
+
+    //@Autowired
+    //private MapperUtil mapperUtil;
+
+    public StudentDTO createStudent(StudentDTO studentDTO){
         Student  student = new Student();
         student.setName(studentDTO.getName());
         student.setEmail(studentDTO.getEmail());
@@ -35,6 +40,8 @@ public class StudentService {
         }
 
         student.setCourses(courses);
-        return studentRepository.save(student);
+        Student savedStudent = studentRepository.save(student);
+        return MapperUtil.toStudentDto(savedStudent);
     }
+
 }
