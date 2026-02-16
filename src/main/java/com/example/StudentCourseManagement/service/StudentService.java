@@ -8,6 +8,7 @@ import com.example.StudentCourseManagement.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,8 +23,8 @@ public class StudentService {
     private CourseService courseService;
 
 
-    //@Autowired
-    //private MapperUtil mapperUtil;
+    @Autowired
+    private MapperUtil mapperUtil;
 
     public StudentDTO createStudent(StudentDTO studentDTO){
         Student  student = new Student();
@@ -40,8 +41,21 @@ public class StudentService {
         }
 
         student.setCourses(courses);
+        courses.forEach(course -> course.getStudents().add(student));
         Student savedStudent = studentRepository.save(student);
         return MapperUtil.toStudentDto(savedStudent);
     }
+
+    public List<StudentDTO> getAllStudents(){
+        List<Student> students = studentRepository.findAll();
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+        for(Student student : students){
+            studentDTOS.add(MapperUtil.toStudentDto(student));
+        }
+
+        return studentDTOS;
+
+    }
+
 
 }

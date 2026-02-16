@@ -1,5 +1,6 @@
 package com.example.StudentCourseManagement.Mapper;
 
+import com.example.StudentCourseManagement.dto.CourseDTO;
 import com.example.StudentCourseManagement.dto.StudentDTO;
 import com.example.StudentCourseManagement.model.Course;
 import com.example.StudentCourseManagement.model.Student;
@@ -24,5 +25,18 @@ public class MapperUtil {
         }
         studentDTO.setCourseIds(courseIds);
         return studentDTO;
+    }
+    public static CourseDTO toCourseDto(Course course){
+        CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setId(course.getId());
+        courseDTO.setTitle(course.getTitle());
+        courseDTO.setCredit(course.getCredit());
+        Set<Long> studentIds = new HashSet<>();
+
+        for(Student student: course.getStudents()){
+            studentIds.add(student.getId());
+        }
+        courseDTO.setStudentIds(studentIds);
+        return courseDTO;
     }
 }

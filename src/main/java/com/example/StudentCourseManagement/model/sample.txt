@@ -1,4 +1,4 @@
-{
+student: {
         {
         "id" : 1
         "name": "dale Doe",
@@ -8,9 +8,7 @@
         "id": 1,
         "title": "java Programming",
         "credit": null,
-        "students": {
 
-        }
      }
    }
 }

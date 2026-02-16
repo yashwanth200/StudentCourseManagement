@@ -1,5 +1,6 @@
 package com.example.StudentCourseManagement.controller;
 
+import com.example.StudentCourseManagement.dto.CourseDTO;
 import com.example.StudentCourseManagement.model.Course;
 import com.example.StudentCourseManagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class CourseController {
         return courseService.addCourse(course);
     }
     @GetMapping
-    public List<Course> getAllCourse(){
+    public List<CourseDTO> getAllCourse(){
         return courseService.getAllCourse();
     }
 
@@ -39,6 +40,7 @@ public class CourseController {
         return courseService.getCourseCount();
     }
 
+    /*
     @GetMapping("/courses")
     public List<Course> getCourseByTitle(@RequestParam(required = false) String title){
         if (title != null && !title.trim().isEmpty()) {
@@ -46,6 +48,8 @@ public class CourseController {
         }
         return courseService.getAllCourse();
     }
+     */
+
     @GetMapping("/filter")
     public List<Course> findByCredit(@RequestParam Integer credit){
         return courseService.getCourseByCredit(credit);

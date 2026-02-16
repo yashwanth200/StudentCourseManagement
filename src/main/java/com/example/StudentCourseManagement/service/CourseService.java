@@ -1,10 +1,13 @@
 package com.example.StudentCourseManagement.service;
 
+import com.example.StudentCourseManagement.Mapper.MapperUtil;
+import com.example.StudentCourseManagement.dto.CourseDTO;
 import com.example.StudentCourseManagement.model.Course;
 import com.example.StudentCourseManagement.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,14 +18,21 @@ public class CourseService {
     public Course addCourse(Course course){
         return courseRepository.save(course);
     }
-    public List<Course> getAllCourse(){
-        return courseRepository.findAll();
+
+    public List<CourseDTO> getAllCourse(){
+        List<Course> courses =  courseRepository.findAll();
+        List<CourseDTO> courseDTOs = new ArrayList<>();
+        for(Course course: courses){
+            courseDTOs.add(MapperUtil.toCourseDto(course));
+        }
+        return courseDTOs;
     }
 
     public Course getCourseById(Long courseId){
         Course courseById = courseRepository.findById(courseId)
                 .orElseThrow(()->
                         new RuntimeException("Course with id "+ courseId + " not present"));
+
         return courseById;
     }
 
@@ -36,9 +46,11 @@ public class CourseService {
     }
 
     public void deleteCourse(Long id){
-        Course existingCourse = courseRepository.findById(id)
+        Course course = courseRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Course with + "+id + "not present"));
+        course.getStudents().forEach(student -> student.getCourses().remove(course));
+        course.getStudents().clear();
         courseRepository.deleteById(id);
     }
     public Long getCourseCount(){

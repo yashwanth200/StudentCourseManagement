@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Enrollment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Students</h3>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentModal">
+            ➕ Add Student
+        </button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Courses</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+    </table>
+
+</div>
+
+<!-- ================= STUDENT MODAL ================= -->
+<div class="modal fade" id="studentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Student</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="studentId">
+
+                <input class="form-control mb-2" id="name" placeholder="Name">
+                <input class="form-control mb-2" id="department" placeholder="Department">
+                <input class="form-control mb-3" id="email" placeholder="Email">
+
+                <label class="fw-bold">Enroll Courses</label>
+                <div id="courseCheckboxes"
+                     class="border p-2 rounded"
+                     style="max-height: 200px; overflow-y: auto;">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveStudent()">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/student.js"></script>
+</body>
+</html>
