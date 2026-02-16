@@ -85,6 +85,14 @@ public class StudentService {
         return MapperUtil.toStudentDto(updatedStudent);
         }
 
+        public void deleteStudentById(Long id){
 
+        Student student = studentRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("student with course id :"+ id + " does not exist"));
 
+        student.getCourses().
+                forEach(course -> course.getStudents().remove(student));
+        student.getCourses().clear();
+        studentRepository.deleteById(id);
+        }
 }

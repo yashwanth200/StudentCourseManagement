@@ -52,8 +52,10 @@ public class CourseService {
                 forEach(student->student.getCourses().remove(existingCourse));
         existingCourse.getStudents().clear();
         Set<Student> newStudents= new HashSet<>();
-        for(Long studentId: courseDTO.getStudentIds()){
-            newStudents.add(studentRepo.findById(studentId).orElseThrow(()-> new RuntimeException("Student with id "+ studentId +"not present")));
+        if(courseDTO.getStudentIds()!=null) {
+            for (Long studentId : courseDTO.getStudentIds()) {
+                newStudents.add(studentRepo.findById(studentId).orElseThrow(() -> new RuntimeException("Student with id " + studentId + "not present")));
+            }
         }
         existingCourse.setStudents(newStudents);
         newStudents.
@@ -66,9 +68,12 @@ public class CourseService {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Course with + "+id + "not present"));
-
+        course.getStudents().
+                forEach(student -> student.getCourses().remove(course));
+        course.getStudents().clear();
         courseRepository.deleteById(id);
     }
+
     public Long getCourseCount(){
         List<Course> courses = courseRepository.findAll();
         return (long) courses.size();
