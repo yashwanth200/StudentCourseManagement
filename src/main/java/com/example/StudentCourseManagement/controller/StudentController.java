@@ -16,14 +16,27 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public StudentDTO createStudent(@RequestBody StudentDTO studentDTO){
+    public StudentDTO createStudent(@RequestBody StudentDTO studentDTO) {
         return studentService.createStudent(studentDTO);
     }
 
     @GetMapping
-    public List<StudentDTO> getAllStudents(){
+    public List<StudentDTO> getAllStudents() {
         return studentService.getAllStudents();
     }
+
+    @PutMapping("/{id}")
+    public StudentDTO updateStudent(
+            @PathVariable Long id,
+            @RequestBody StudentDTO studentDTO){
+        return studentService.updateStudent(id,studentDTO);
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable Long id){
+        return studentService.getStudentById(id);
+    }
+
 
 
 

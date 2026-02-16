@@ -57,5 +57,34 @@ public class StudentService {
 
     }
 
+    public Student getStudentById(Long id){
+        return studentRepository.findById(id).
+                orElseThrow(()-> new RuntimeException("Student with + "+id + "not present"));
+    }
+
+    public StudentDTO updateStudent(Long id , StudentDTO studentDTO){
+        Student existingStudent = studentRepository.findById(id).
+                orElseThrow(()-> new RuntimeException("Student with + "+id + "not present"));
+
+        existingStudent.setName(studentDTO.getName());
+        existingStudent.setDepartment(studentDTO.getDepartment());
+        existingStudent.setEmail(studentDTO.getEmail());
+
+        existingStudent.getCourses().
+                forEach(course -> course.getStudents().remove(existingStudent));
+        existingStudent.getCourses().clear();
+
+        Set<Course> newCourses = new HashSet<>();
+        for(Long newId: studentDTO.getCourseIds()){
+            newCourses.add(courseService.getCourseById(newId));
+        }
+        existingStudent.setCourses(newCourses);
+        newCourses.forEach
+                (course -> course.getStudents().add(existingStudent));
+        Student updatedStudent = studentRepository.save(existingStudent);
+        return MapperUtil.toStudentDto(updatedStudent);
+        }
+
+
 
 }

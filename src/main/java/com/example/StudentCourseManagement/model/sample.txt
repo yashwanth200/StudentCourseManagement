@@ -1,14 +1,28 @@
-student: {
-        {
-        "id" : 1
-        "name": "dale Doe",
-        "department": "Computer Science",
-        "email": "dale.doe@example.com",
-        "courses": {
+Courses : [
+    {
         "id": 1,
-        "title": "java Programming",
-        "credit": null,
+        "title": "Java Programming",
+        "credit": 3,
+        "studentIds": [
 
-     }
-   }
-}
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Python Programming",
+        "credit": 3,
+        "studentIds": [1]
+    }
+]
+Students:
+[
+    {
+        "id": 1,
+        "name": "Dale",
+        "email": "Dale.doe@example.com",
+        "department": "Computer Science",
+        "courseIds": [
+            2
+        ]
+    }
+]
